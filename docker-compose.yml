@@ -1,0 +1,139 @@
+# =============================================================
+# Coal Mine Monitoring System - Docker Compose
+# =============================================================
+# Sử dụng:
+#   1. Build image:        docker-compose build
+#   2. Chạy container:     docker-compose up -d
+#   3. Xem logs:           docker-compose logs -f
+#   4. Dừng container:     docker-compose down
+# =============================================================
+
+version: '3.8'
+
+services:
+  coal-monitoring:
+    # Tên container
+    container_name: coal-monitoring-app
+    
+    # Build từ Dockerfile trong thư mục hiện tại
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    # Hoặc dùng image đã build sẵn (comment build section ở trên)
+    # image: coal-monitoring:latest
+    
+    # ==========================================
+    # GPU Support - BẮT BUỘC cho YOLO
+    # ==========================================
+    # Yêu cầu: Cài đặt nvidia-container-toolkit trên host
+    # Xem: https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1  # Số GPU sử dụng (1 hoặc all)
+              capabilities: [gpu]
+    
+    # ==========================================
+    # Volume Mounts - Dữ liệu persistent
+    # ==========================================
+    volumes:
+      # Config file - QUAN TRỌNG: Chỉnh sửa trước khi chạy
+      - ./config:/app/config:ro
+      
+      # YOLO Models - Đặt file .pt vào đây
+      - ./models:/app/models:ro
+      
+      # Logs - Ghi log cảnh báo
+      - ./logs:/app/logs
+      
+      # Artifacts - Lưu ảnh cảnh báo
+      - ./artifacts:/app/artifacts
+    
+    # ==========================================
+    # Network Settings
+    # ==========================================
+    # Host network mode để truy cập:
+    # - Camera RTSP (cùng mạng LAN)
+    # - PLC (cùng mạng LAN)
+    network_mode: host
+    
+    # Hoặc dùng bridge network với port mapping (nếu cần)
+    # ports:
+    #   - "8080:8080"
+    
+    # ==========================================
+    # Environment Variables
+    # ==========================================
+    environment:
+      # Timezone
+      - TZ=Asia/Ho_Chi_Minh
+      
+      # CUDA settings
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      
+      # Python settings
+      - PYTHONUNBUFFERED=1
+    
+    # ==========================================
+    # Restart Policy
+    # ==========================================
+    # Tự động restart khi:
+    # - Container crash
+    # - Docker daemon restart
+    # - Máy host reboot
+    restart: unless-stopped
+    
+    # ==========================================
+    # Resource Limits (tùy chọn)
+    # ==========================================
+    # Giới hạn RAM và CPU để tránh chiếm hết tài nguyên
+    # mem_limit: 8g
+    # cpus: 4
+    
+    # ==========================================
+    # Logging
+    # ==========================================
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
+    
+    # ==========================================
+    # Health Check
+    # ==========================================
+    healthcheck:
+      test: ["CMD", "python", "-c", "import coal_monitoring; print('OK')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+# =============================================================
+# Hướng dẫn sử dụng:
+# =============================================================
+# 
+# 1. Chuẩn bị thư mục:
+#    mkdir -p config models logs artifacts
+#    cp system_config.json config/
+#    cp *.pt models/
+#
+# 2. Chỉnh sửa config/system_config.json:
+#    - Cập nhật đường dẫn model: "/app/models/best_segment.pt"
+#    - Cập nhật RTSP URLs
+#    - Cập nhật PLC IPs
+#
+# 3. Build và chạy:
+#    docker-compose up -d
+#
+# 4. Xem logs:
+#    docker-compose logs -f coal-monitoring
+#
+# 5. Dừng:
+#    docker-compose down
+# =============================================================
+

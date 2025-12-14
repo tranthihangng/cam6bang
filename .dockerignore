@@ -1,0 +1,62 @@
+# =============================================================
+# Docker Ignore File - Giảm kích thước Docker image
+# =============================================================
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Git
+.git/
+.gitignore
+
+# Logs và artifacts (sẽ mount từ bên ngoài)
+logs/
+artifacts/
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Test files
+test_*.py
+*_test.py
+tests/
+
+# Documentation (không cần trong runtime)
+*.md
+!README.md
+docs/
+
+# Model files (sẽ mount từ bên ngoài)
+*.pt
+*.pth
+*.onnx
+models/
+
+# Config files (sẽ mount từ bên ngoài)
+system_config.json
+*_config.json
+
+# Development files
+.env
+.env.local
+*.bak
+

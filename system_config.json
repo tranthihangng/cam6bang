@@ -1,0 +1,623 @@
+{
+    "version": "2.0.0",
+    "app_name": "Phần Mềm Giám Sát Sự Cố",
+    "company": "NATECH Technology",
+    "model_path": "best_segment_26_11.pt",
+    "artifacts_dir": "artifacts",
+    "logs_dir": "logs",
+    "cameras": [
+        {
+            "camera_id": "camera_1",
+            "name": "Camera 1",
+            "rtsp_url": "rtsp://admin:Mothan341@@192.168.1.181:554/Streaming/Channels/102",
+            "video_path": "",
+            "target_fps": 22,
+            "plc": {
+                "ip": "192.168.0.4",
+                "port": 102,
+                "rack": 0,
+                "slot": 2,
+                "db_number": 300,
+                "person_alarm_byte": 6,
+                "person_alarm_bit": 0,
+                "coal_alarm_byte": 6,
+                "coal_alarm_bit": 1,
+                "enabled": true,
+                "reconnect_attempts": 3,
+                "health_check_interval": 10.0
+            },
+            "roi": {
+                "reference_resolution": [
+                    1920,
+                    1080
+                ],
+                "roi_person": [
+                    [
+                        393,
+                        333
+                    ],
+                    [
+                        541,
+                        333
+                    ],
+                    [
+                        553,
+                        292
+                    ],
+                    [
+                        628,
+                        292
+                    ],
+                    [
+                        660,
+                        35
+                    ],
+                    [
+                        777,
+                        35
+                    ],
+                    [
+                        857,
+                        330
+                    ],
+                    [
+                        899,
+                        330
+                    ],
+                    [
+                        939,
+                        650
+                    ],
+                    [
+                        299,
+                        642
+                    ]
+                ],
+                "roi_coal": [
+                    [
+                        547,
+                        629
+                    ],
+                    [
+                        567,
+                        451
+                    ],
+                    [
+                        892,
+                        460
+                    ],
+                    [
+                        923,
+                        637
+                    ]
+                ]
+            },
+            "detection": {
+                "confidence_threshold": 0.7,
+                "person_detection_enabled": true,
+                "person_consecutive_threshold": 3,
+                "person_no_detection_threshold": 5,
+                "coal_detection_enabled": true,
+                "coal_ratio_threshold": 73.0,
+                "coal_consecutive_threshold": 5,
+                "coal_no_blockage_threshold": 5
+            },
+            "enabled": true
+        },
+        {
+            "camera_id": "camera_2",
+            "name": "Camera 2",
+            "rtsp_url": "rtsp://admin:Mothan341@@192.168.1.182:554/Streaming/Channels/102",
+            "video_path": "",
+            "target_fps": 22,
+            "plc": {
+                "ip": "192.168.0.5",
+                "port": 102,
+                "rack": 0,
+                "slot": 2,
+                "db_number": 300,
+                "person_alarm_byte": 6,
+                "person_alarm_bit": 2,
+                "coal_alarm_byte": 6,
+                "coal_alarm_bit": 3,
+                "enabled": true,
+                "reconnect_attempts": 3,
+                "health_check_interval": 10.0
+            },
+            "roi": {
+                "reference_resolution": [
+                    1920,
+                    1080
+                ],
+                "roi_person": [
+                    [
+                        393,
+                        333
+                    ],
+                    [
+                        541,
+                        333
+                    ],
+                    [
+                        553,
+                        292
+                    ],
+                    [
+                        628,
+                        292
+                    ],
+                    [
+                        660,
+                        35
+                    ],
+                    [
+                        777,
+                        35
+                    ],
+                    [
+                        857,
+                        330
+                    ],
+                    [
+                        899,
+                        330
+                    ],
+                    [
+                        939,
+                        650
+                    ],
+                    [
+                        299,
+                        642
+                    ]
+                ],
+                "roi_coal": [
+                    [
+                        547,
+                        629
+                    ],
+                    [
+                        567,
+                        451
+                    ],
+                    [
+                        892,
+                        460
+                    ],
+                    [
+                        923,
+                        637
+                    ]
+                ]
+            },
+            "detection": {
+                "confidence_threshold": 0.7,
+                "person_detection_enabled": true,
+                "person_consecutive_threshold": 3,
+                "person_no_detection_threshold": 5,
+                "coal_detection_enabled": true,
+                "coal_ratio_threshold": 73.0,
+                "coal_consecutive_threshold": 5,
+                "coal_no_blockage_threshold": 5
+            },
+            "enabled": true
+        },
+        {
+            "camera_id": "camera_3",
+            "name": "Camera 3",
+            "rtsp_url": "rtsp://admin:Mothan341@@192.168.1.183:554/Streaming/Channels/102",
+            "video_path": "",
+            "target_fps": 22,
+            "plc": {
+                "ip": "192.168.0.6",
+                "port": 102,
+                "rack": 0,
+                "slot": 2,
+                "db_number": 300,
+                "person_alarm_byte": 6,
+                "person_alarm_bit": 4,
+                "coal_alarm_byte": 6,
+                "coal_alarm_bit": 5,
+                "enabled": true,
+                "reconnect_attempts": 3,
+                "health_check_interval": 10.0
+            },
+            "roi": {
+                "reference_resolution": [
+                    1920,
+                    1080
+                ],
+                "roi_person": [
+                    [
+                        393,
+                        333
+                    ],
+                    [
+                        541,
+                        333
+                    ],
+                    [
+                        553,
+                        292
+                    ],
+                    [
+                        628,
+                        292
+                    ],
+                    [
+                        660,
+                        35
+                    ],
+                    [
+                        777,
+                        35
+                    ],
+                    [
+                        857,
+                        330
+                    ],
+                    [
+                        899,
+                        330
+                    ],
+                    [
+                        939,
+                        650
+                    ],
+                    [
+                        299,
+                        642
+                    ]
+                ],
+                "roi_coal": [
+                    [
+                        547,
+                        629
+                    ],
+                    [
+                        567,
+                        451
+                    ],
+                    [
+                        892,
+                        460
+                    ],
+                    [
+                        923,
+                        637
+                    ]
+                ]
+            },
+            "detection": {
+                "confidence_threshold": 0.7,
+                "person_detection_enabled": true,
+                "person_consecutive_threshold": 3,
+                "person_no_detection_threshold": 5,
+                "coal_detection_enabled": true,
+                "coal_ratio_threshold": 73.0,
+                "coal_consecutive_threshold": 5,
+                "coal_no_blockage_threshold": 5
+            },
+            "enabled": true
+        },
+        {
+            "camera_id": "camera_4",
+            "name": "Camera 4",
+            "rtsp_url": "rtsp://admin:Mothan341@@192.168.1.184:554/Streaming/Channels/102",
+            "video_path": "",
+            "target_fps": 22,
+            "plc": {
+                "ip": "192.168.0.7",
+                "port": 102,
+                "rack": 0,
+                "slot": 2,
+                "db_number": 300,
+                "person_alarm_byte": 6,
+                "person_alarm_bit": 6,
+                "coal_alarm_byte": 6,
+                "coal_alarm_bit": 7,
+                "enabled": true,
+                "reconnect_attempts": 3,
+                "health_check_interval": 10.0
+            },
+            "roi": {
+                "reference_resolution": [
+                    1920,
+                    1080
+                ],
+                "roi_person": [
+                    [
+                        393,
+                        333
+                    ],
+                    [
+                        541,
+                        333
+                    ],
+                    [
+                        553,
+                        292
+                    ],
+                    [
+                        628,
+                        292
+                    ],
+                    [
+                        660,
+                        35
+                    ],
+                    [
+                        777,
+                        35
+                    ],
+                    [
+                        857,
+                        330
+                    ],
+                    [
+                        899,
+                        330
+                    ],
+                    [
+                        939,
+                        650
+                    ],
+                    [
+                        299,
+                        642
+                    ]
+                ],
+                "roi_coal": [
+                    [
+                        547,
+                        629
+                    ],
+                    [
+                        567,
+                        451
+                    ],
+                    [
+                        892,
+                        460
+                    ],
+                    [
+                        923,
+                        637
+                    ]
+                ]
+            },
+            "detection": {
+                "confidence_threshold": 0.7,
+                "person_detection_enabled": true,
+                "person_consecutive_threshold": 3,
+                "person_no_detection_threshold": 5,
+                "coal_detection_enabled": true,
+                "coal_ratio_threshold": 73.0,
+                "coal_consecutive_threshold": 5,
+                "coal_no_blockage_threshold": 5
+            },
+            "enabled": true
+        },
+        {
+            "camera_id": "camera_5",
+            "name": "Camera 5",
+            "rtsp_url": "rtsp://admin:Mothan341@@192.168.1.185:554/Streaming/Channels/102",
+            "video_path": "",
+            "target_fps": 22,
+            "plc": {
+                "ip": "192.168.0.8",
+                "port": 102,
+                "rack": 0,
+                "slot": 2,
+                "db_number": 300,
+                "person_alarm_byte": 7,
+                "person_alarm_bit": 0,
+                "coal_alarm_byte": 7,
+                "coal_alarm_bit": 1,
+                "enabled": true,
+                "reconnect_attempts": 3,
+                "health_check_interval": 10.0
+            },
+            "roi": {
+                "reference_resolution": [
+                    1920,
+                    1080
+                ],
+                "roi_person": [
+                    [
+                        393,
+                        333
+                    ],
+                    [
+                        541,
+                        333
+                    ],
+                    [
+                        553,
+                        292
+                    ],
+                    [
+                        628,
+                        292
+                    ],
+                    [
+                        660,
+                        35
+                    ],
+                    [
+                        777,
+                        35
+                    ],
+                    [
+                        857,
+                        330
+                    ],
+                    [
+                        899,
+                        330
+                    ],
+                    [
+                        939,
+                        650
+                    ],
+                    [
+                        299,
+                        642
+                    ]
+                ],
+                "roi_coal": [
+                    [
+                        547,
+                        629
+                    ],
+                    [
+                        567,
+                        451
+                    ],
+                    [
+                        892,
+                        460
+                    ],
+                    [
+                        923,
+                        637
+                    ]
+                ]
+            },
+            "detection": {
+                "confidence_threshold": 0.7,
+                "person_detection_enabled": true,
+                "person_consecutive_threshold": 3,
+                "person_no_detection_threshold": 5,
+                "coal_detection_enabled": true,
+                "coal_ratio_threshold": 73.0,
+                "coal_consecutive_threshold": 5,
+                "coal_no_blockage_threshold": 5
+            },
+            "enabled": true
+        },
+        {
+            "camera_id": "camera_6",
+            "name": "Camera 6",
+            "rtsp_url": "rtsp://admin:Mothan341@@192.168.1.186:554/Streaming/Channels/102",
+            "video_path": "",
+            "target_fps": 22,
+            "plc": {
+                "ip": "192.168.0.9",
+                "port": 102,
+                "rack": 0,
+                "slot": 2,
+                "db_number": 300,
+                "person_alarm_byte": 7,
+                "person_alarm_bit": 2,
+                "coal_alarm_byte": 7,
+                "coal_alarm_bit": 3,
+                "enabled": true,
+                "reconnect_attempts": 3,
+                "health_check_interval": 10.0
+            },
+            "roi": {
+                "reference_resolution": [
+                    1920,
+                    1080
+                ],
+                "roi_person": [
+                    [
+                        393,
+                        333
+                    ],
+                    [
+                        541,
+                        333
+                    ],
+                    [
+                        553,
+                        292
+                    ],
+                    [
+                        628,
+                        292
+                    ],
+                    [
+                        660,
+                        35
+                    ],
+                    [
+                        777,
+                        35
+                    ],
+                    [
+                        857,
+                        330
+                    ],
+                    [
+                        899,
+                        330
+                    ],
+                    [
+                        939,
+                        650
+                    ],
+                    [
+                        299,
+                        642
+                    ]
+                ],
+                "roi_coal": [
+                    [
+                        547,
+                        629
+                    ],
+                    [
+                        567,
+                        451
+                    ],
+                    [
+                        892,
+                        460
+                    ],
+                    [
+                        923,
+                        637
+                    ]
+                ]
+            },
+            "detection": {
+                "confidence_threshold": 0.7,
+                "person_detection_enabled": true,
+                "person_consecutive_threshold": 3,
+                "person_no_detection_threshold": 5,
+                "coal_detection_enabled": true,
+                "coal_ratio_threshold": 73.0,
+                "coal_consecutive_threshold": 5,
+                "coal_no_blockage_threshold": 5
+            },
+            "enabled": true
+        }
+    ],
+    "ui_update_interval_ms": 100,
+    "max_log_lines": 100,
+    "alert_display_interval": 3.0,
+    "image_save_interval": 5.0,
+    "ui_debounce_interval": 1.0,
+    "models": {
+        "model_1": {
+            "path": "best_segment_26_11.pt",
+            "name": "Model Than & Nguoi",
+            "cameras": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ]
+        },
+        "model_2": {
+            "path": "best_segment_27_11_copy.pt",
+            "name": "Model Khac",
+            "cameras": [
+                6
+            ]
+        }
+    }
+}
