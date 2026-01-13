@@ -113,8 +113,11 @@ class CameraMonitor:
         self.config = config
         self.model_loader = model_loader
         
-        # Extract camera number from camera_id (e.g., "camera_1" -> 1)
-        self._camera_number = self._extract_camera_number(config.camera_id)
+        # Lấy camera_number từ config (ưu tiên) hoặc extract từ camera_id
+        if hasattr(config, 'camera_number') and config.camera_number:
+            self._camera_number = config.camera_number
+        else:
+            self._camera_number = self._extract_camera_number(config.camera_id)
         self.on_frame = on_frame
         self.on_detection = on_detection
         self.on_alert = on_alert

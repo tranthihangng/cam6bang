@@ -7,13 +7,14 @@
     "logs_dir": "logs",
     "cameras": [
         {
-            "camera_id": "camera_1",
-            "name": "Camera 1",
-            "rtsp_url": "rtsp://admin:Mothan341@@192.168.1.181:554/Streaming/Channels/102",
+            "camera_id": "bang_103",
+            "camera_number": 1,
+            "name": "Bang 103",
+            "rtsp_url": "rtsp://admin:LCGSXD@192.168.1.177:554/h264/ch1/sub/av_stream",
             "video_path": "",
             "target_fps": 22,
             "plc": {
-                "ip": "192.168.0.4",
+                "ip": "192.168.0.1",
                 "port": 102,
                 "rack": 0,
                 "slot": 2,
@@ -33,7 +34,7 @@
                 ],
                 "roi_person": [
                     [
-                        393,
+                        193,
                         333
                     ],
                     [
@@ -105,9 +106,10 @@
             "enabled": true
         },
         {
-            "camera_id": "camera_2",
-            "name": "Camera 2",
-            "rtsp_url": "rtsp://admin:Mothan341@@192.168.1.182:554/Streaming/Channels/102",
+            "camera_id": "bang_420",
+            "camera_number": 2,
+            "name": "Bang 420",
+            "rtsp_url": "rtsp://admin:LCGSXD@192.168.1.177:554/h264/ch1/sub/av_stream",
             "video_path": "",
             "target_fps": 22,
             "plc": {
@@ -203,9 +205,10 @@
             "enabled": true
         },
         {
-            "camera_id": "camera_3",
-            "name": "Camera 3",
-            "rtsp_url": "rtsp://admin:Mothan341@@192.168.1.183:554/Streaming/Channels/102",
+            "camera_id": "bang_401",
+            "camera_number": 3,
+            "name": "Bang 401",
+            "rtsp_url": "rtsp://admin:LCGSXD@192.168.1.177:554/h264/ch1/sub/av_stream",
             "video_path": "",
             "target_fps": 22,
             "plc": {
@@ -301,9 +304,10 @@
             "enabled": true
         },
         {
-            "camera_id": "camera_4",
-            "name": "Camera 4",
-            "rtsp_url": "rtsp://admin:Mothan341@@192.168.1.184:554/Streaming/Channels/102",
+            "camera_id": "md_110",
+            "camera_number": 4,
+            "name": "MD 110",
+            "rtsp_url": "rtsp://admin:LCGSXD@192.168.1.177:554/h264/ch1/sub/av_stream",
             "video_path": "",
             "target_fps": 22,
             "plc": {
@@ -399,9 +403,10 @@
             "enabled": true
         },
         {
-            "camera_id": "camera_5",
-            "name": "Camera 5",
-            "rtsp_url": "rtsp://admin:Mothan341@@192.168.1.185:554/Streaming/Channels/102",
+            "camera_id": "bang_301",
+            "camera_number": 5,
+            "name": "Bang 301",
+            "rtsp_url": "rtsp://admin:LCGSXD@192.168.1.177:554/h264/ch1/main/av_stream",
             "video_path": "",
             "target_fps": 22,
             "plc": {
@@ -497,9 +502,10 @@
             "enabled": true
         },
         {
-            "camera_id": "camera_6",
-            "name": "Camera 6",
-            "rtsp_url": "rtsp://admin:Mothan341@@192.168.1.186:554/Streaming/Channels/102",
+            "camera_id": "bang_207",
+            "camera_number": 6,
+            "name": "Bang 207",
+            "rtsp_url": "rtsp://admin:LCGSXD@192.168.1.177:554/h264/ch1/sub/av_stream",
             "video_path": "",
             "target_fps": 22,
             "plc": {
@@ -601,23 +607,35 @@
     "image_save_interval": 5.0,
     "ui_debounce_interval": 1.0,
     "models": {
-        "model_1": {
-            "path": "best_segment_26_11.pt",
-            "name": "Model Than & Nguoi",
-            "cameras": [
-                1,
-                2,
-                3,
-                4,
-                5
-            ]
+        "model_bang103": {
+            "path": "models/bang103.pt",
+            "name": "Model Bang 103",
+            "cameras": [1]
         },
-        "model_2": {
-            "path": "best_segment_27_11_copy.pt",
-            "name": "Model Khac",
-            "cameras": [
-                6
-            ]
+        "model_bang420": {
+            "path": "models/bang420.pt",
+            "name": "Model Bang 420",
+            "cameras": [2]
+        },
+        "model_bang401": {
+            "path": "models/bang401.pt",
+            "name": "Model Bang 401",
+            "cameras": [3]
+        },
+        "model_md110": {
+            "path": "models/md110.pt",
+            "name": "Model MD 110",
+            "cameras": [4]
+        },
+        "model_bang301": {
+            "path": "models/bang301.pt",
+            "name": "Model Bang 301",
+            "cameras": [5]
+        },
+        "model_bang207": {
+            "path": "models/bang207.pt",
+            "name": "Model Bang 207",
+            "cameras": [6]
         }
     }
 }

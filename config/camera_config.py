@@ -189,6 +189,9 @@ class CameraConfig:
     # ID duy nhất cho camera
     camera_id: str = "camera_1"
     
+    # Số thứ tự camera (dùng để map với model)
+    camera_number: int = 1
+    
     # Tên hiển thị
     name: str = "Camera 1"
     
@@ -217,6 +220,7 @@ class CameraConfig:
         """Chuyển đổi sang dictionary"""
         return {
             "camera_id": self.camera_id,
+            "camera_number": self.camera_number,
             "name": self.name,
             "rtsp_url": self.rtsp_url,
             "video_path": self.video_path,
@@ -232,6 +236,7 @@ class CameraConfig:
         """Tạo instance từ dictionary"""
         return cls(
             camera_id=data.get("camera_id", "camera_1"),
+            camera_number=data.get("camera_number", 1),
             name=data.get("name", "Camera 1"),
             rtsp_url=data.get("rtsp_url", ""),
             video_path=data.get("video_path", ""),

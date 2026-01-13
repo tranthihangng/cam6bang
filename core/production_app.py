@@ -230,7 +230,8 @@ class ProductionMultiCameraApp:
         self._start_time = time.time()
         
         for i, cam in enumerate(self.config.cameras):
-            cam_id = i + 1
+            # Sử dụng camera_number từ config (ưu tiên) hoặc i+1 (fallback)
+            cam_id = getattr(cam, 'camera_number', i + 1)
             
             if not cam.enabled:
                 self._log(f"⏸️ Camera {cam_id}: Đã tắt trong cấu hình")
@@ -279,7 +280,8 @@ class ProductionMultiCameraApp:
                 results[cam_id] = False
                 self._log(f"❌ Camera {cam_id}: Không thể khởi động")
         
-        self._stats.total_cameras = len(self.config.cameras)
+        # Đếm chỉ enabled cameras (cameras có thể chạy)
+        self._stats.total_cameras = len([c for c in self.config.cameras if c.enabled])
         self._update_stats()
         
         success_count = sum(1 for v in results.values() if v)
@@ -314,7 +316,12 @@ class ProductionMultiCameraApp:
     
     def _update_stats(self) -> None:
         """Cập nhật statistics"""
+        # Đếm số camera đang chạy (workers đang running)
         self._stats.running_cameras = sum(1 for w in self._workers.values() if w.is_running)
+        
+        # Cập nhật total_cameras = số enabled cameras (nếu chưa được set)
+        if self._stats.total_cameras == 0:
+            self._stats.total_cameras = len([c for c in self.config.cameras if c.enabled])
         self._stats.total_person_alerts = self._person_alerts
         self._stats.total_coal_alerts = self._coal_alerts
         
