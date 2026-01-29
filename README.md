@@ -1,6 +1,5 @@
-# Coal Mine Monitoring System - Multi-Camera Architecture
+# Coal Mine Monitoring System - 6 Camera GUI
 
-Hệ thống giám sát mỏ than đa camera với kiến trúc module hóa.
 
 ## 📁 Cấu trúc thư mục
 
@@ -70,61 +69,6 @@ python main.py --config system_config.json
 ```
 
 
-## 📋 Config Format
-
-```json
-{
-    "models": {
-        "model_1": {
-            "path": "best_segment_26_11.pt",
-            "name": "Model Than & Nguoi",
-            "cameras": [1, 2, 3, 4, 5]
-        },
-        "model_2": {
-            "path": "best_segment_27_11_copy.pt",
-            "name": "Model Khac",
-            "cameras": [6]
-        }
-    },
-    "cameras": [
-        {
-            "camera_id": "camera_1",
-            "name": "Camera 1",
-            "rtsp_url": "rtsp://admin:password@192.168.0.179:554/...",
-            "plc": {
-                "ip": "192.168.0.4",
-                "db_number": 300,
-                "person_alarm_byte": 6,
-                "person_alarm_bit": 0,
-                "coal_alarm_byte": 6,
-                "coal_alarm_bit": 1
-            },
-            "roi": {
-                "reference_resolution": [1920, 1080],
-                "roi_person": [[x1, y1], [x2, y2], ...],
-                "roi_coal": [[x1, y1], [x2, y2], ...]
-            },
-            "detection": {
-                "confidence_threshold": 0.7,
-                "person_consecutive_threshold": 3,
-                "coal_ratio_threshold": 73.0
-            }
-        }
-    ]
-}
-```
-
-
-
-## 📦 Dependencies
-
-```
-ultralytics>=8.0.0
-opencv-python>=4.8.0
-python-snap7>=1.3
-pillow>=10.0.0
-numpy>=1.24.0
-```
 
 ## 📝 License
 
