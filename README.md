@@ -49,63 +49,26 @@ coal_monitoring/
     └── multi_camera_app.py  # MultiCameraApp - multiple cameras
 ```
 
-## 🎯 Module Architecture
 
-### 1. Config Module (`config/`)
-- **SystemConfig**: Cấu hình toàn hệ thống
-- **CameraConfig**: Cấu hình từng camera (RTSP, PLC, ROI, Detection)
-- Load/Save từ JSON file
-
-### 2. Camera Module (`camera/`)
-- **VideoSource**: Quản lý nguồn video (RTSP/file) với auto-reconnect
-- **FrameBuffer**: Thread-safe frame queue
-
-### 3. Detection Module (`detection/`)
-- **MultiModelLoader**: Quản lý nhiều YOLO models (camera nào dùng model nào)
-- **PersonDetector**: Phát hiện người trong ROI với consecutive frame logic
-- **CoalDetector**: Phát hiện tắc than với ratio threshold
-- **ROIManager**: Quản lý và scale ROI
-
-### 4. PLC Module (`plc/`)
-- **PLCClient**: Snap7 wrapper với auto-reconnect
-- **AlarmManager**: Quản lý trạng thái ON/OFF báo động
-
-### 5. Alerting Module (`alerting/`)
-- **AlertLogger**: Ghi log cảnh báo ra JSON
-- **ImageSaver**: Lưu ảnh cảnh báo với ROI
-
-### 6. Core Module (`core/`)
-- **CameraMonitor**: Giám sát một camera đơn lẻ
-- **MultiCameraApp**: Quản lý nhiều cameras
-
-### 7. UI Module (`ui/`)
-- **MainWindow**: Giao diện Tkinter đa camera
 
 ## 🚀 Sử dụng
 
-### 1. Tạo file config
-```bash
-python main.py --create-config 6
-```
 
-### 2. Chỉnh sửa config
+
+### 1. Chỉnh sửa config
 Mở file `system_config.json` và cập nhật:
 - RTSP URLs cho từng camera
 - PLC IPs và addresses
 - ROI points
 - Detection thresholds
 
-### 3. Chạy ứng dụng
+### 2. Chạy ứng dụng
 
 **Với GUI:**
 ```bash
 python main.py --config system_config.json
 ```
 
-**Không có GUI (headless):**
-```bash
-python main.py --config system_config.json --headless
-```
 
 ## 📋 Config Format
 
@@ -151,97 +114,7 @@ python main.py --config system_config.json --headless
 }
 ```
 
-### Multi-Model Support 🆕
 
-Hệ thống hỗ trợ nhiều model YOLO, mỗi camera có thể dùng model khác nhau:
-
-```json
-"models": {
-    "model_1": {
-        "path": "best_segment_26_11.pt",    
-        "name": "Model Than & Nguoi",       
-        "cameras": [1, 2, 3, 4, 5]          
-    },
-    "model_2": {
-        "path": "best_segment_special.pt",
-        "name": "Model Dac Biet",
-        "cameras": [6]
-    }
-}
-```
-
-- `path`: Đường dẫn file model (.pt)
-- `name`: Tên hiển thị
-- `cameras`: Danh sách số camera sử dụng model này (1, 2, 3, ...)
-
-## 🔧 Tái sử dụng Module
-
-### Sử dụng từng module độc lập:
-
-```python
-# Config
-from coal_monitoring.config import CameraConfig, load_config
-
-# Camera
-from coal_monitoring.camera import VideoSource
-
-# Detection
-from coal_monitoring.detection import ModelLoader, PersonDetector
-
-# PLC
-from coal_monitoring.plc import PLCClient, AlarmManager
-
-# Core
-from coal_monitoring.core import CameraMonitor, MultiCameraApp
-```
-
-### Ví dụ sử dụng PersonDetector độc lập:
-
-```python
-from coal_monitoring.detection import MultiModelLoader, PersonDetector
-
-# Load model (multi-model support)
-loader = MultiModelLoader.get_instance()
-loader.load(
-    model_id="model_1",
-    model_path="best_segment.pt",
-    model_name="Main Model",
-    cameras=[1, 2, 3]  # Cameras 1, 2, 3 dùng model này
-)
-
-# Create detector
-detector = PersonDetector(
-    roi_points=[(100, 100), (500, 100), (500, 400), (100, 400)],
-    person_class_id=0,
-    consecutive_threshold=3
-)
-
-# Detect (specify camera_number để dùng đúng model)
-result = loader.predict(camera_number=1, frame=frame)
-detection = detector.detect(frame, result)
-
-if detection.should_alarm:
-    print("ALARM!")
-```
-
-### Ví dụ load nhiều models:
-
-```python
-from coal_monitoring.config import load_config
-from coal_monitoring.detection import MultiModelLoader
-
-# Load config
-config = load_config("system_config.json")
-
-# Load tất cả models từ config
-loader = MultiModelLoader.get_instance()
-results = loader.load_from_config(config)
-# results = {"model_1": True, "model_2": True}
-
-# Inference cho camera cụ thể (tự động dùng đúng model)
-result_cam1 = loader.predict(camera_number=1, frame=frame1)  # Dùng model_1
-result_cam6 = loader.predict(camera_number=6, frame=frame6)  # Dùng model_2
-```
 
 ## 📦 Dependencies
 
@@ -251,35 +124,6 @@ opencv-python>=4.8.0
 python-snap7>=1.3
 pillow>=10.0.0
 numpy>=1.24.0
-```
-
-## 🎯 Multi-Camera Architecture
-
-```
-┌──────────────────────────────────────────────────────────────────┐
-│                       MultiCameraApp                              │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐ ┌──────────┐ │
-│  │CameraMonitor│  │CameraMonitor│  │CameraMonitor│ │CameraM...│ │
-│  │  Camera 1   │  │  Camera 2   │  │  Camera 5   │ │Camera 6  │ │
-│  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘ └────┬─────┘ │
-│         │                │                │             │       │
-│  ┌──────┴──────┐  ┌──────┴──────┐  ┌──────┴──────┐ ┌────┴─────┐ │
-│  │ VideoSource │  │ VideoSource │  │ VideoSource │ │VideoSrc  │ │
-│  │ Detectors   │  │ Detectors   │  │ Detectors   │ │Detectors │ │
-│  │ PLCClient   │  │ PLCClient   │  │ PLCClient   │ │PLCClient │ │
-│  └─────────────┘  └─────────────┘  └─────────────┘ └──────────┘ │
-│         │                │                │              │       │
-│         └────────┬───────┴────────────────┘              │       │
-│                  ▼                                       ▼       │
-│         ┌───────────────┐                      ┌───────────────┐ │
-│         │   Model 1     │                      │   Model 2     │ │
-│         │ (Cam 1,2,3,4,5│                      │   (Cam 6)     │ │
-│         └───────────────┘                      └───────────────┘ │
-│                          │                    │                  │
-│                    ┌─────┴────────────────────┴─────┐            │
-│                    │    MultiModelLoader (Singleton) │            │
-│                    └────────────────────────────────┘            │
-└──────────────────────────────────────────────────────────────────┘
 ```
 
 ## 📝 License
